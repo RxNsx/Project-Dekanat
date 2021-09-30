@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 
 namespace WFA
 {
-	public class User
+	public class Student
 	{
+		#region Свойства пользотеля
 		public string Name { get; }
 		public string LastName { get; }
 		public string PhoneNumber { get; }
+		#endregion
 
-		public User(string name,string lastName,string phoneNumber)
+
+		/// <summary>
+		/// Данные пользователя
+		/// </summary>
+		/// <param name="name">Имя</param>
+		/// <param name="lastName">Фамилия</param>
+		/// <param name="phoneNumber">Номер телефона</param>
+		public Student(string name,string lastName,string phoneNumber)
 		{
 			if(string.IsNullOrEmpty(name))
 			{
@@ -22,11 +31,10 @@ namespace WFA
 			{
 				throw new ArgumentNullException("Недопустимое значение имени", nameof(lastName));
 			}
-			//if (string.IsNullOrEmpty(phoneNumber) || phoneNumber.Length < 12 || phoneNumber.Length > 15)
-			//{
-			//	throw new ArgumentNullException("Недопустимое значение имени", nameof(phoneNumber));
-			//}
-
+			if (string.IsNullOrEmpty(phoneNumber) || phoneNumber.Length == 0 || phoneNumber.Length < 10)
+			{
+				throw new ArgumentNullException("Недопустимое значение номера телефона", nameof(phoneNumber));
+			}
 
 			Name = name;
 			LastName = lastName;

@@ -16,24 +16,5 @@ namespace WFA
 		{
 			InitializeComponent();
 		}
-
-		private void Form2_Load(object sender, EventArgs e)
-		{
-			DataTable table = new DataTable();
-
-			table.Columns.Add("Name", typeof(string));
-			table.Columns.Add("LastName", typeof(string));
-			table.Columns.Add("PhoneNumber", typeof(string));
-			table.Columns.Add("Group", typeof(string));
-			table.Columns.Add("MarksJournal", typeof(double));
-
-			dataGridView1.DataSource = table;
-			
-		}
-
-		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-		}
 	}
 }
