@@ -28,10 +28,6 @@ namespace WFA
 		/// Таблица данных
 		/// </summary>
 		DataTable table = new DataTable();
-		int[] AllCourses = { 1, 2, 3, 4, 5 };
-		string[] FormsOfEducation = { "Очная", "Заочная" };
-		//TODO: Добавить обработку массива списка групп
-		//string[] groups = { "M11", "M12", "M13", "M14", "M15"};
 
 
 		/// <summary>
@@ -43,42 +39,27 @@ namespace WFA
 		{
 			MessageBox.Show("Программа запущена");
 
+			Courses firstCourse = new Courses(1);
+			Courses secondCourse = new Courses(2);
+			Courses thirdCourse = new Courses(3);
+			Courses fourthCourse = new Courses(4);
+			Courses fifthCourse = new Courses(5);
+
+			Courses[] AllCourses = {firstCourse,secondCourse,thirdCourse,fourthCourse,fifthCourse};
+
 			dataGridView1.AllowUserToAddRows = false;
 
-			table.Columns.Add("Имя", typeof(string));
 			table.Columns.Add("Фамилия", typeof(string));
+			table.Columns.Add("Имя", typeof(string));
 			table.Columns.Add("Отчество", typeof(string));
-			//table.Columns.Add("Курс", typeof(int));
-			//table.Columns.Add("Группа", typeof(string));
+			table.Columns.Add("Дата рождения", typeof(string));
 			table.Columns.Add("Форма обучения", typeof(string));
+			table.Columns.Add("Курс", typeof(string));
+			table.Columns.Add("Группа", typeof(string));
 			table.Columns.Add("Номер телефона", typeof(string));
 
-			var CourseNumber = new DataGridViewComboBoxColumn();
-			CourseNumber.Name = "Курс";
-			CourseNumber.MaxDropDownItems = 5;
-			
-			//Внесение всех курсов в дроплист
-			for(int i = 0; i < AllCourses.Length; i++)
-			{
-				CourseNumber.Items.Add(AllCourses[i]);
-			}
-			dataGridView1.Columns.Insert(3, CourseNumber);
-
-			var GroupNumber = new DataGridViewComboBoxColumn();
-			GroupNumber.Name = "Группа";
-			//TODO: Уточнить полное количество групп, или отталкиваться от созданных групп в лист боксе
-			GroupNumber.MaxDropDownItems = 5;
-			for(int i = 0; i < grou)
-
-			//Внесение всех груп в зависимости от курса
-
-
-
-			
-			
-
-			//Присваивание таблицы к ДГВ
 			dataGridView1.DataSource = table;
+
 		}
 
 		/// <summary>
@@ -88,14 +69,23 @@ namespace WFA
 		/// <param name="e"></param>
 		private void but_AddUser_Click(object sender, EventArgs e)
 		{
-			Student student = new Student(nameBox_1.Text,lastnameBox_1.Text,phoneNumberBox_1.Text);
+
+			Student student = new Student(lastNameBox.Text,nameBox.Text,middleNameBox.Text, birthdayBox.Text, educationFormBox.Text, courseBox.Text,groupBox.Text,phoneNumberBox.Text);
 			Users.Add(student);
 
-			nameBox_1.Clear();
-			lastnameBox_1.Clear();
-			phoneNumberBox_1.Clear();
+			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber);
 
-			table.Rows.Add(student.Name,student.LastName,student.PhoneNumber);
+			lastNameBox.Clear();
+			nameBox.Clear();
+			middleNameBox.Clear();
+			birthdayBox.Clear();
+			educationFormBox.Clear();
+			courseBox.Clear();
+			groupBox.Clear();
+			phoneNumberBox.Clear();
+
+
+			
 		}
 
 		/// <summary>
@@ -119,9 +109,10 @@ namespace WFA
 			var save = new SaveFileDialog
 			{
 				AddExtension = true,
-				DefaultExt = "bin",
-				Filter = @"Текстовые файлы(*.txt)|*.txt|CSV-файл (*.csv)|*.csv|Bin-файл (*.bin)|*.bin",
-				FilterIndex = 2,
+				InitialDirectory = "c:\\",
+				DefaultExt = "txt",
+				Filter = @"Текстовые файлы(*.txt)|*.txt",
+				FilterIndex = 1,
 				RestoreDirectory = false
 
 			};
@@ -145,14 +136,16 @@ namespace WFA
 
 						foreach (DataGridViewCell cell in row.Cells)
 						{
-							if (!first)
+							if(!first)
 							{
 								sw.Write(" ");
 							}
 
+
 							sw.Write(cell.Value.ToString());
 
 							first = false;
+
 						}
 
 						sw.WriteLine();
@@ -168,47 +161,53 @@ namespace WFA
 		/// <param name="e"></param>
 		private void button_ReadDB_Click(object sender, EventArgs e)
 		{
-			var filepath = string.Empty;
 
 			var openfile = new OpenFileDialog()
 			{
 				InitialDirectory = "c:\\",
-				Filter = @"Текстовые файлы(*.txt)|*.txt|CSV-файл (*.csv)|*.csv|Bin-файл (*.bin)|*.bin",
-				FilterIndex = 2,
+				Filter = @"Текстовые файлы(*.txt)|*.txt",
+				FilterIndex = 1,
 				RestoreDirectory = true
 			};
 
 			//Если открытие файла подтвердилось кнопкой ОК
 			if(openfile.ShowDialog() == DialogResult.OK)
 			{
-				filepath = openfile.FileName;
 
 				//Считывание данные файла в поток
 				var filestream = openfile.OpenFile();
 
-				using (var sr = new StreamReader(filestream))
+				using (var sr = new StreamReader(filestream,Encoding.UTF8,true))
 				{
-					//Наполняем массиув столбцами (столбец #имя 
-					string[] columnnames = sr.ReadLine().Split(' ');
-					DataTable dt = new DataTable();
+
+					DataTable TableForWriting = new DataTable();
 
 					//Считываем все столбцы
-					foreach (string c in columnnames)
-					{
-						dt.Columns.Add(c);
-					}
+
+					TableForWriting.Columns.Add("Фамилия", typeof(string));
+					TableForWriting.Columns.Add("Имя", typeof(string));
+					TableForWriting.Columns.Add("Отчество", typeof(string));
+					TableForWriting.Columns.Add("Дата рождения", typeof(string));
+					TableForWriting.Columns.Add("Форма обучения", typeof(string));
+					TableForWriting.Columns.Add("Курс", typeof(string));
+					TableForWriting.Columns.Add("Группа", typeof(string));
+					TableForWriting.Columns.Add("Номер телефона", typeof(string));
+
 					string newline;
+
 					while ((newline = sr.ReadLine()) != null)
 					{
-						DataRow dr = dt.NewRow();
+						DataRow dr = TableForWriting.NewRow();
+
 						string[] values = newline.Split(' ');
+
 						for (int i = 0; i < values.Length; i++)
 						{
 							dr[i] = values[i];
 						}
-						dt.Rows.Add(dr);
+						TableForWriting.Rows.Add(dr);
 					}
-					dataGridView1.DataSource = dt;
+					dataGridView1.DataSource = TableForWriting;
 				}
 			}
 		}
@@ -220,7 +219,10 @@ namespace WFA
 		/// <param name="e"></param>
 		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-
+			//Выбрать всю строку при клике на ячейку
+			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 		}
+
+
 	}
 }
