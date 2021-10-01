@@ -28,7 +28,7 @@ namespace WFA
 		/// Таблица данных
 		/// </summary>
 		DataTable table = new DataTable();
-
+		DataTable TableForWriting = new DataTable();
 
 		/// <summary>
 		/// Загрузка программы, подгрузка столбцов таблицы для начала работы
@@ -38,14 +38,6 @@ namespace WFA
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			MessageBox.Show("Программа запущена");
-
-			Courses firstCourse = new Courses(1);
-			Courses secondCourse = new Courses(2);
-			Courses thirdCourse = new Courses(3);
-			Courses fourthCourse = new Courses(4);
-			Courses fifthCourse = new Courses(5);
-
-			Courses[] AllCourses = {firstCourse,secondCourse,thirdCourse,fourthCourse,fifthCourse};
 
 			dataGridView1.AllowUserToAddRows = false;
 
@@ -57,6 +49,7 @@ namespace WFA
 			table.Columns.Add("Курс", typeof(string));
 			table.Columns.Add("Группа", typeof(string));
 			table.Columns.Add("Номер телефона", typeof(string));
+			table.Columns.Add("Cредний балл студента", typeof(string));
 
 			dataGridView1.DataSource = table;
 
@@ -73,7 +66,8 @@ namespace WFA
 			Student student = new Student(lastNameBox.Text,nameBox.Text,middleNameBox.Text, birthdayBox.Text, educationFormBox.Text, courseBox.Text,groupBox.Text,phoneNumberBox.Text);
 			Users.Add(student);
 
-			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber);
+			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber,student.MiddleMark);
+			TableForWriting.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber,student.MiddleMark);
 
 			lastNameBox.Clear();
 			nameBox.Clear();
@@ -97,6 +91,7 @@ namespace WFA
 		{
 			int delete = dataGridView1.SelectedCells[0].RowIndex;
 			dataGridView1.Rows.RemoveAt(delete);
+			Users.RemoveAt(delete);
 		}
 
 		/// <summary>
@@ -180,7 +175,7 @@ namespace WFA
 				using (var sr = new StreamReader(filestream,Encoding.UTF8,true))
 				{
 
-					DataTable TableForWriting = new DataTable();
+					
 
 					//Считываем все столбцы
 
@@ -192,6 +187,7 @@ namespace WFA
 					TableForWriting.Columns.Add("Курс", typeof(string));
 					TableForWriting.Columns.Add("Группа", typeof(string));
 					TableForWriting.Columns.Add("Номер телефона", typeof(string));
+					TableForWriting.Columns.Add("Cредний балл студента", typeof(string));
 
 					string newline;
 
@@ -219,10 +215,29 @@ namespace WFA
 		/// <param name="e"></param>
 		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-			//Выбрать всю строку при клике на ячейку
-			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+			
 		}
 
+		private void button_AddUserObjectsMarks_Click(object sender, EventArgs e)
+		{
+			//Выбрать всю строку целиком
 
+			int columnIndex = dataGridView1.CurrentCell.ColumnIndex;
+			int rowIndex = dataGridView1.CurrentCell.RowIndex;
+
+			if(columnIndex > 0)
+			{
+				columnIndex = 0;
+			}
+
+			string LastNameDataForForm2 = dataGridView1[columnIndex, rowIndex].Value.ToString();
+			string NameDataForForm2 = dataGridView1[columnIndex+1, rowIndex].Value.ToString();
+
+
+			//TODO: Добавить данные из датагрида из выделенной ячейки выдернуть нужное
+			Form frm2 = new Form2(LastNameDataForForm2, NameDataForForm2);
+			frm2.Show();
+		}
 	}
 }

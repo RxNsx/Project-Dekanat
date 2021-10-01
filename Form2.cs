@@ -12,9 +12,18 @@ namespace WFA
 {
 	public partial class Form2 : Form
 	{
-		public Form2()
+		public Form2(string lastNameBox,string nameBox)
 		{
 			InitializeComponent();
+			lastNameBoxForm2.Text = lastNameBox;
+			nameBoxForm2.Text = nameBox;
+
+		}
+
+		private void Form2_Load(object sender, EventArgs e)
+		{
+			
+			
 		}
 	}
 }

@@ -50,6 +50,7 @@
 			this.birthdayBox = new System.Windows.Forms.TextBox();
 			this.educationFormBox = new System.Windows.Forms.TextBox();
 			this.courseBox = new System.Windows.Forms.TextBox();
+			this.button_AddUserObjectsMarks = new System.Windows.Forms.Button();
 			textBox1 = new System.Windows.Forms.TextBox();
 			textBox3 = new System.Windows.Forms.TextBox();
 			textBox4 = new System.Windows.Forms.TextBox();
@@ -66,7 +67,7 @@
 			textBox1.BackColor = System.Drawing.Color.Wheat;
 			textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox1.Location = new System.Drawing.Point(956, 177);
+			textBox1.Location = new System.Drawing.Point(1063, 104);
 			textBox1.Name = "textBox1";
 			textBox1.ReadOnly = true;
 			textBox1.Size = new System.Drawing.Size(253, 13);
@@ -79,7 +80,7 @@
 			textBox3.BackColor = System.Drawing.Color.Wheat;
 			textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox3.Location = new System.Drawing.Point(956, 227);
+			textBox3.Location = new System.Drawing.Point(1063, 154);
 			textBox3.Name = "textBox3";
 			textBox3.ReadOnly = true;
 			textBox3.Size = new System.Drawing.Size(253, 13);
@@ -92,7 +93,7 @@
 			textBox4.BackColor = System.Drawing.Color.Wheat;
 			textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox4.Location = new System.Drawing.Point(956, 277);
+			textBox4.Location = new System.Drawing.Point(1063, 204);
 			textBox4.Name = "textBox4";
 			textBox4.ReadOnly = true;
 			textBox4.Size = new System.Drawing.Size(253, 13);
@@ -105,7 +106,7 @@
 			textBox5.BackColor = System.Drawing.Color.Wheat;
 			textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox5.Location = new System.Drawing.Point(956, 327);
+			textBox5.Location = new System.Drawing.Point(1063, 254);
 			textBox5.Name = "textBox5";
 			textBox5.ReadOnly = true;
 			textBox5.Size = new System.Drawing.Size(253, 13);
@@ -118,7 +119,7 @@
 			textBox6.BackColor = System.Drawing.Color.Wheat;
 			textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox6.Location = new System.Drawing.Point(956, 377);
+			textBox6.Location = new System.Drawing.Point(1063, 304);
 			textBox6.Name = "textBox6";
 			textBox6.ReadOnly = true;
 			textBox6.Size = new System.Drawing.Size(253, 13);
@@ -131,7 +132,7 @@
 			textBox7.BackColor = System.Drawing.Color.Wheat;
 			textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox7.Location = new System.Drawing.Point(956, 427);
+			textBox7.Location = new System.Drawing.Point(1063, 354);
 			textBox7.Name = "textBox7";
 			textBox7.ReadOnly = true;
 			textBox7.Size = new System.Drawing.Size(253, 13);
@@ -144,7 +145,7 @@
 			textBox8.BackColor = System.Drawing.Color.Wheat;
 			textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox8.Location = new System.Drawing.Point(956, 477);
+			textBox8.Location = new System.Drawing.Point(1063, 404);
 			textBox8.Name = "textBox8";
 			textBox8.ReadOnly = true;
 			textBox8.Size = new System.Drawing.Size(253, 13);
@@ -152,23 +153,36 @@
 			textBox8.Text = "Номер телефона";
 			textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
+			// textBox2
+			// 
+			textBox2.BackColor = System.Drawing.Color.Wheat;
+			textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			textBox2.Location = new System.Drawing.Point(1063, 54);
+			textBox2.Name = "textBox2";
+			textBox2.ReadOnly = true;
+			textBox2.Size = new System.Drawing.Size(253, 13);
+			textBox2.TabIndex = 157;
+			textBox2.Text = "Фамилия";
+			textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
 			// groupBox
 			// 
-			this.groupBox.Location = new System.Drawing.Point(960, 446);
+			this.groupBox.Location = new System.Drawing.Point(1067, 373);
 			this.groupBox.Name = "groupBox";
 			this.groupBox.Size = new System.Drawing.Size(249, 20);
 			this.groupBox.TabIndex = 7;
 			// 
 			// phoneNumberBox
 			// 
-			this.phoneNumberBox.Location = new System.Drawing.Point(960, 496);
+			this.phoneNumberBox.Location = new System.Drawing.Point(1067, 423);
 			this.phoneNumberBox.Name = "phoneNumberBox";
 			this.phoneNumberBox.Size = new System.Drawing.Size(250, 20);
 			this.phoneNumberBox.TabIndex = 8;
 			// 
 			// lastNameBox
 			// 
-			this.lastNameBox.Location = new System.Drawing.Point(960, 146);
+			this.lastNameBox.Location = new System.Drawing.Point(1067, 73);
 			this.lastNameBox.Name = "lastNameBox";
 			this.lastNameBox.Size = new System.Drawing.Size(250, 20);
 			this.lastNameBox.TabIndex = 1;
@@ -182,7 +196,7 @@
 			// 
 			// nameBox
 			// 
-			this.nameBox.Location = new System.Drawing.Point(960, 196);
+			this.nameBox.Location = new System.Drawing.Point(1067, 123);
 			this.nameBox.Name = "nameBox";
 			this.nameBox.Size = new System.Drawing.Size(250, 20);
 			this.nameBox.TabIndex = 2;
@@ -190,9 +204,9 @@
 			// button_DeleteUser
 			// 
 			this.button_DeleteUser.BackColor = System.Drawing.Color.Transparent;
-			this.button_DeleteUser.Location = new System.Drawing.Point(1093, 566);
+			this.button_DeleteUser.Location = new System.Drawing.Point(1217, 449);
 			this.button_DeleteUser.Name = "button_DeleteUser";
-			this.button_DeleteUser.Size = new System.Drawing.Size(200, 50);
+			this.button_DeleteUser.Size = new System.Drawing.Size(100, 50);
 			this.button_DeleteUser.TabIndex = 152;
 			this.button_DeleteUser.Text = "Удалить пользователя";
 			this.button_DeleteUser.UseVisualStyleBackColor = false;
@@ -211,9 +225,9 @@
 			// 
 			// but_AddUser
 			// 
-			this.but_AddUser.Location = new System.Drawing.Point(873, 566);
+			this.but_AddUser.Location = new System.Drawing.Point(1067, 449);
 			this.but_AddUser.Name = "but_AddUser";
-			this.but_AddUser.Size = new System.Drawing.Size(200, 50);
+			this.but_AddUser.Size = new System.Drawing.Size(100, 50);
 			this.but_AddUser.TabIndex = 154;
 			this.but_AddUser.Text = "Добавить пользователя";
 			this.but_AddUser.UseVisualStyleBackColor = true;
@@ -241,44 +255,41 @@
 			// 
 			// middleNameBox
 			// 
-			this.middleNameBox.Location = new System.Drawing.Point(960, 246);
+			this.middleNameBox.Location = new System.Drawing.Point(1067, 173);
 			this.middleNameBox.Name = "middleNameBox";
 			this.middleNameBox.Size = new System.Drawing.Size(249, 20);
 			this.middleNameBox.TabIndex = 3;
 			// 
 			// birthdayBox
 			// 
-			this.birthdayBox.Location = new System.Drawing.Point(960, 296);
+			this.birthdayBox.Location = new System.Drawing.Point(1067, 223);
 			this.birthdayBox.Name = "birthdayBox";
 			this.birthdayBox.Size = new System.Drawing.Size(249, 20);
 			this.birthdayBox.TabIndex = 4;
 			// 
 			// educationFormBox
 			// 
-			this.educationFormBox.Location = new System.Drawing.Point(960, 346);
+			this.educationFormBox.Location = new System.Drawing.Point(1067, 273);
 			this.educationFormBox.Name = "educationFormBox";
 			this.educationFormBox.Size = new System.Drawing.Size(250, 20);
 			this.educationFormBox.TabIndex = 5;
 			// 
 			// courseBox
 			// 
-			this.courseBox.Location = new System.Drawing.Point(960, 396);
+			this.courseBox.Location = new System.Drawing.Point(1067, 323);
 			this.courseBox.Name = "courseBox";
 			this.courseBox.Size = new System.Drawing.Size(249, 20);
 			this.courseBox.TabIndex = 6;
 			// 
-			// textBox2
+			// button_AddUserObjectsMarks
 			// 
-			textBox2.BackColor = System.Drawing.Color.Wheat;
-			textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			textBox2.Location = new System.Drawing.Point(956, 127);
-			textBox2.Name = "textBox2";
-			textBox2.ReadOnly = true;
-			textBox2.Size = new System.Drawing.Size(253, 13);
-			textBox2.TabIndex = 157;
-			textBox2.Text = "Фамилия";
-			textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.button_AddUserObjectsMarks.Location = new System.Drawing.Point(576, 12);
+			this.button_AddUserObjectsMarks.Name = "button_AddUserObjectsMarks";
+			this.button_AddUserObjectsMarks.Size = new System.Drawing.Size(277, 53);
+			this.button_AddUserObjectsMarks.TabIndex = 158;
+			this.button_AddUserObjectsMarks.Text = "Внести данные по Учёбе";
+			this.button_AddUserObjectsMarks.UseVisualStyleBackColor = true;
+			this.button_AddUserObjectsMarks.Click += new System.EventHandler(this.button_AddUserObjectsMarks_Click);
 			// 
 			// Form1
 			// 
@@ -286,6 +297,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Wheat;
 			this.ClientSize = new System.Drawing.Size(1328, 656);
+			this.Controls.Add(this.button_AddUserObjectsMarks);
 			this.Controls.Add(textBox8);
 			this.Controls.Add(textBox7);
 			this.Controls.Add(textBox6);
@@ -333,6 +345,7 @@
 		private System.Windows.Forms.TextBox birthdayBox;
 		private System.Windows.Forms.TextBox educationFormBox;
 		private System.Windows.Forms.TextBox courseBox;
+		private System.Windows.Forms.Button button_AddUserObjectsMarks;
 	}
 }
 

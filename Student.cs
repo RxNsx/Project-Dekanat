@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WFA
@@ -21,8 +22,11 @@ namespace WFA
 		public string GroupNumber { get; }
 		public string PhoneNumber { get; }
 
+		//Курс студента
+		public Courses Courses { get;}
 
-		string[] FormsOfEducation = { "Очная", "Заочная" };
+		//Средний балл по итогам сессии
+		public double MiddleMark { get; } = 0;
 
 		#endregion
 
@@ -53,20 +57,16 @@ namespace WFA
 				throw new ArgumentNullException("Недопустимое значение отчества", nameof(middleName));
 			}
 
-			if (string.IsNullOrEmpty(phoneNumber) || phoneNumber.Length == 0 || phoneNumber.Length < 10)
-			{
-				throw new ArgumentNullException("Недопустимое значение номера телефона", nameof(phoneNumber));
-			}
-
-			LastName = lastName;
-			Name = name;
-			MiddleName = middleName;
-
-
 			//Проверка даты рождения студента
 			//TODO: Подумать как избежать лишней переменной в памяти
-			Birthdate = DateTime.Parse(birthday);
-
+			try
+			{
+				Birthdate = DateTime.Parse(birthday);
+			}
+			catch(FormatException e)
+			{
+				throw new FormatException("Неправильный формат даты", e);
+			}
 			if (Birthdate.Day < 0)
 			{
 				throw new ArgumentException("Недопустимое значение дня");
@@ -79,8 +79,21 @@ namespace WFA
 			{
 				throw new ArgumentException("Недопустимое значение года рождения");
 			}
+			if(!(educationForm.Contains("Очная") || educationForm.Contains("Заочная")))
+			{
+				throw new ArgumentException("Недопустимое значени формы обучения");
+			}
+			if (string.IsNullOrEmpty(phoneNumber) || phoneNumber.Length == 0 || phoneNumber.Length < 10)
+			{
+				throw new ArgumentNullException("Недопустимое значение номера телефона", nameof(phoneNumber));
+			}
 
 
+
+
+			LastName = lastName;
+			Name = name;
+			MiddleName = middleName;
 			DayOfBirth = birthday;
 			EducationForm = educationForm;
 			Course = course;

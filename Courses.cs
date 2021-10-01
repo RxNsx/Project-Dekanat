@@ -10,11 +10,16 @@ namespace WFA
 	{
 		public byte CourseNumber = 0;
 
+		//Cписок групп на курсе
 		List<string> groups = new List<string>();
+
+		//Список предметов
+		public List<Subject> subjects = new List<Subject>();
 
 		public Courses(byte courseNumber)
 		{
 			CourseNumber = courseNumber;
 		}
+		
 	}
 }
