@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace WFA
 {
-	public class Courses
+	public class Course
 	{
-		public byte CourseNumber = 0;
+		public int CourseNumber = 0;
 
+		//TODO: Список групп
 		//Cписок групп на курсе
-		List<string> groups = new List<string>();
+		List<Group> groups = new List<Group>();
 
 		//Список предметов
 		public List<Subject> subjects = new List<Subject>();
 
-		public Courses(byte courseNumber)
+		public Course(int courseNumber)
 		{
 			CourseNumber = courseNumber;
 		}

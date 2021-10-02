@@ -13,22 +13,19 @@ namespace WFA
 		public string Name { get; }
 		public string LastName { get; }
 		public string MiddleName { get; }
-
-		public DateTime Birthdate { get; }
 		public string DayOfBirth { get; }
-
 		public string EducationForm { get; }
-		public string Course { get; }
-		public string GroupNumber { get; }
+		public Course Course { get; }
+		public Group Group { get; }
 		public string PhoneNumber { get; }
 
-		//Курс студента
-		//TODO: Доделать курс с группами
-		public Courses Courses { get;}
+	
+		//Средний балл по итогам курса
+		//TODO: Средняя оценка
+		public double MiddleMark { get; set; } = 0;
+		public DateTime Birthdate { get; }
 
-		//Средний балл по итогам сессии
-		public double MiddleMark { get; } = 0;
-
+		string[] FormatOfEducations = { "Очная", "Заочная" };
 		#endregion
 
 
@@ -41,9 +38,9 @@ namespace WFA
 		/// <param name="birthday">Дата Рождения</param>
 		/// <param name="educationForm">Форма обучения</param>
 		/// <param name="course">Курс</param>
-		/// <param name="groupNumber">Группа</param>
+		/// <param name="group">Группа</param>
 		/// <param name="phoneNumber">Номер телефона</param>
-		public Student(string lastName,string name, string middleName,string birthday,string educationForm,string course,string groupNumber,string phoneNumber)
+		public Student(string lastName,string name, string middleName,string birthday,string educationForm,Course course,Group group,string phoneNumber)
 		{
 			if (string.IsNullOrEmpty(lastName))
 			{
@@ -80,17 +77,18 @@ namespace WFA
 			{
 				throw new ArgumentException("Недопустимое значение года рождения");
 			}
-			if(!(educationForm.Contains("Очная") || educationForm.Contains("Заочная")))
+			if(!(educationForm == FormatOfEducations[1] || educationForm == FormatOfEducations[0]))
 			{
 				throw new ArgumentException("Недопустимое значени формы обучения");
+			}
+			if(course.CourseNumber > 6 || course.CourseNumber < 0)
+			{
+				throw new ArgumentException("Недопустимое значение курса студента");
 			}
 			if (string.IsNullOrEmpty(phoneNumber) || phoneNumber.Length == 0 || phoneNumber.Length < 10)
 			{
 				throw new ArgumentNullException("Недопустимое значение номера телефона", nameof(phoneNumber));
 			}
-
-
-
 
 			LastName = lastName;
 			Name = name;
@@ -98,7 +96,7 @@ namespace WFA
 			DayOfBirth = birthday;
 			EducationForm = educationForm;
 			Course = course;
-			GroupNumber = groupNumber;
+			Group = group;
 			PhoneNumber = phoneNumber;
 		}
 	}

@@ -9,7 +9,8 @@ namespace WFA
 	public class Subject
 	{
 		public string Name { get; }
-		public byte Mark;
+
+		public int Mark;
 
 		public Subject(string name)
 		{

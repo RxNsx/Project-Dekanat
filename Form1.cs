@@ -14,14 +14,15 @@ namespace WFA
 {
 	public partial class Form1 : Form
 	{
+		//Cписок пользователей
+		List<Student> Students = new List<Student>();
+		Student CurrentStudent { get; set; }
+
 		public Form1()
 		{
 			InitializeComponent();
 		}
-
-		//Cписок пользователей
-		List<Student> Students = new List<Student>();
-
+		
 		/// <summary>
 		/// Таблица данных для заполнения
 		/// </summary>
@@ -34,8 +35,6 @@ namespace WFA
 		/// <param name="e"></param>
 		private void Form1_Load(object sender, EventArgs e)
 		{
-
-
 			MessageBox.Show("Программа запущена");
 
 			dataGridView1.AllowUserToAddRows = false;
@@ -49,10 +48,8 @@ namespace WFA
 			table.Columns.Add("Курс", typeof(string));
 			table.Columns.Add("Группа", typeof(string));
 			table.Columns.Add("Номер телефона", typeof(string));
-			table.Columns.Add("Cредний балл студента по итогам курса", typeof(string));
 
 			dataGridView1.DataSource = table;
-
 		}
 
 		/// <summary>
@@ -63,13 +60,10 @@ namespace WFA
 		private void but_AddUser_Click(object sender, EventArgs e)
 		{
 
-			Student student = new Student(lastNameBox.Text,nameBox.Text,middleNameBox.Text, birthdayBox.Text, educationFormBox.Text, courseBox.Text,groupBox.Text,phoneNumberBox.Text);
+			Student student = new Student(lastNameBox.Text,nameBox.Text,middleNameBox.Text, birthdayBox.Text, educationFormBox.Text, new Course(Convert.ToInt32(courseBox.Text)),new Group(groupBox.Text),phoneNumberBox.Text);
 			Students.Add(student);
 
-			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber);
-
-			//Разные таблицы для реализации добавления
-			//TableForWriting.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber);
+			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course.CourseNumber, student.Group.Name, student.PhoneNumber);
 
 			lastNameBox.Clear();
 			nameBox.Clear();
@@ -187,21 +181,13 @@ namespace WFA
 							dr[i] = values[i];
 						}
 						table.Rows.Add(dr);
+
+						Student student = new Student(values[0], values[1], values[2], values[3], values[4], new Course(Convert.ToInt32(values[5])), new Group(values[6]),values[7]);
+						Students.Add(student);
 					}
 
 				}
 			}
-		}
-
-		/// <summary>
-		/// Отображение формы успеваемости студента
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-			
 		}
 
 		/// <summary>
@@ -216,26 +202,49 @@ namespace WFA
 			int columnIndex = dataGridView1.CurrentCell.ColumnIndex;
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
 
-			if(columnIndex > 0)
-			{
-				columnIndex = 0;
-			}
+			//Выбираем студента по которому кликнули в данный момент
+			CurrentStudent = Students[rowIndex];
 
-			string LastNameDataForForm2 = dataGridView1[columnIndex, rowIndex].Value.ToString();
-			string NameDataForForm2 = dataGridView1["Имя", rowIndex].Value.ToString();
-			int CourseDataForForm2 = Convert.ToInt32(dataGridView1["Курс", rowIndex].Value);
-			string GroupDataForForm2 = "Группа " + dataGridView1["Группа", rowIndex].Value.ToString();
+			Form frm2 = new Form2(CurrentStudent);
 
-
-			//TODO: Добавить данные из датагрида из выделенной ячейки выдернуть нужное
-			Form frm2 = new Form2(LastNameDataForForm2, NameDataForForm2,CourseDataForForm2,GroupDataForForm2);
 			frm2.Show();
+			//Выносим новую форму на передний план
 			frm2.Activate();
 		}
 
+		/// <summary>
+		/// Обновление ДГВ
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public void button_RefreshDataGridView_Click(object sender, EventArgs e)
 		{
+			//Students[dataGridView1.CurrentCell.RowIndex] = frm2.
 			dataGridView1.Refresh();
+		}
+
+		private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
+		{
+			//Координаты строки измененной ячейки
+			int rowIndex = dataGridView1.CurrentCell.RowIndex;
+
+			//Присваивание новых данных после изменения ячейки студента
+			CurrentStudent = new Student(
+
+			dataGridView1[0, rowIndex].Value.ToString(),
+			dataGridView1[1, rowIndex].Value.ToString(),
+			dataGridView1[2, rowIndex].Value.ToString(),
+			dataGridView1[3, rowIndex].Value.ToString(),
+			dataGridView1[4, rowIndex].Value.ToString(),
+			new Course(Convert.ToInt32(dataGridView1[5, rowIndex].Value.ToString())),
+			new Group(dataGridView1[6, rowIndex].Value.ToString()),
+			dataGridView1[7, rowIndex].Value.ToString()
+
+			);
+
+			Students[rowIndex] = CurrentStudent;
+			
+				
 		}
 	}
 }
