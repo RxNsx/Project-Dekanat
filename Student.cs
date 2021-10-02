@@ -23,6 +23,7 @@ namespace WFA
 		public string PhoneNumber { get; }
 
 		//Курс студента
+		//TODO: Доделать курс с группами
 		public Courses Courses { get;}
 
 		//Средний балл по итогам сессии

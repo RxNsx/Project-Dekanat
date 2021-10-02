@@ -20,15 +20,12 @@ namespace WFA
 		}
 
 		//Cписок пользователей
-		public List<Student> Users = new List<Student>();
-		//Список групп
-		public List<string> Groups = new List<string>();
-		
+		List<Student> Students = new List<Student>();
+
 		/// <summary>
-		/// Таблица данных
+		/// Таблица данных для заполнения
 		/// </summary>
 		DataTable table = new DataTable();
-		DataTable TableForWriting = new DataTable();
 
 		/// <summary>
 		/// Загрузка программы, подгрузка столбцов таблицы для начала работы
@@ -37,10 +34,13 @@ namespace WFA
 		/// <param name="e"></param>
 		private void Form1_Load(object sender, EventArgs e)
 		{
+
+
 			MessageBox.Show("Программа запущена");
 
 			dataGridView1.AllowUserToAddRows = false;
 
+			///Отрисовка столбцов главной таблицы dataGridView1
 			table.Columns.Add("Фамилия", typeof(string));
 			table.Columns.Add("Имя", typeof(string));
 			table.Columns.Add("Отчество", typeof(string));
@@ -49,7 +49,7 @@ namespace WFA
 			table.Columns.Add("Курс", typeof(string));
 			table.Columns.Add("Группа", typeof(string));
 			table.Columns.Add("Номер телефона", typeof(string));
-			table.Columns.Add("Cредний балл студента", typeof(string));
+			table.Columns.Add("Cредний балл студента по итогам курса", typeof(string));
 
 			dataGridView1.DataSource = table;
 
@@ -64,10 +64,12 @@ namespace WFA
 		{
 
 			Student student = new Student(lastNameBox.Text,nameBox.Text,middleNameBox.Text, birthdayBox.Text, educationFormBox.Text, courseBox.Text,groupBox.Text,phoneNumberBox.Text);
-			Users.Add(student);
+			Students.Add(student);
 
-			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber,student.MiddleMark);
-			TableForWriting.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber,student.MiddleMark);
+			table.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber);
+
+			//Разные таблицы для реализации добавления
+			//TableForWriting.Rows.Add(student.LastName, student.Name, student.MiddleName, student.DayOfBirth, student.EducationForm, student.Course, student.GroupNumber, student.PhoneNumber);
 
 			lastNameBox.Clear();
 			nameBox.Clear();
@@ -78,8 +80,6 @@ namespace WFA
 			groupBox.Clear();
 			phoneNumberBox.Clear();
 
-
-			
 		}
 
 		/// <summary>
@@ -91,10 +91,10 @@ namespace WFA
 		{
 			int delete = dataGridView1.SelectedCells[0].RowIndex;
 			dataGridView1.Rows.RemoveAt(delete);
-			Users.RemoveAt(delete);
+			Students.RemoveAt(delete);
 		}
 
-		/// <summary>
+		/// <summary>  
 		/// Запись данных в файл
 		/// </summary>
 		/// <param name="sender"></param>
@@ -174,26 +174,11 @@ namespace WFA
 
 				using (var sr = new StreamReader(filestream,Encoding.UTF8,true))
 				{
-
-					
-
-					//Считываем все столбцы
-
-					TableForWriting.Columns.Add("Фамилия", typeof(string));
-					TableForWriting.Columns.Add("Имя", typeof(string));
-					TableForWriting.Columns.Add("Отчество", typeof(string));
-					TableForWriting.Columns.Add("Дата рождения", typeof(string));
-					TableForWriting.Columns.Add("Форма обучения", typeof(string));
-					TableForWriting.Columns.Add("Курс", typeof(string));
-					TableForWriting.Columns.Add("Группа", typeof(string));
-					TableForWriting.Columns.Add("Номер телефона", typeof(string));
-					TableForWriting.Columns.Add("Cредний балл студента", typeof(string));
-
 					string newline;
 
 					while ((newline = sr.ReadLine()) != null)
 					{
-						DataRow dr = TableForWriting.NewRow();
+						DataRow dr = table.NewRow();
 
 						string[] values = newline.Split(' ');
 
@@ -201,9 +186,9 @@ namespace WFA
 						{
 							dr[i] = values[i];
 						}
-						TableForWriting.Rows.Add(dr);
+						table.Rows.Add(dr);
 					}
-					dataGridView1.DataSource = TableForWriting;
+
 				}
 			}
 		}
@@ -219,6 +204,11 @@ namespace WFA
 			
 		}
 
+		/// <summary>
+		/// Всплывающая форма для проставления оценок студенту
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void button_AddUserObjectsMarks_Click(object sender, EventArgs e)
 		{
 			//Выбрать всю строку целиком
@@ -232,12 +222,20 @@ namespace WFA
 			}
 
 			string LastNameDataForForm2 = dataGridView1[columnIndex, rowIndex].Value.ToString();
-			string NameDataForForm2 = dataGridView1[columnIndex+1, rowIndex].Value.ToString();
+			string NameDataForForm2 = dataGridView1["Имя", rowIndex].Value.ToString();
+			int CourseDataForForm2 = Convert.ToInt32(dataGridView1["Курс", rowIndex].Value);
+			string GroupDataForForm2 = "Группа " + dataGridView1["Группа", rowIndex].Value.ToString();
 
 
 			//TODO: Добавить данные из датагрида из выделенной ячейки выдернуть нужное
-			Form frm2 = new Form2(LastNameDataForForm2, NameDataForForm2);
+			Form frm2 = new Form2(LastNameDataForForm2, NameDataForForm2,CourseDataForForm2,GroupDataForForm2);
 			frm2.Show();
+			frm2.Activate();
+		}
+
+		public void button_RefreshDataGridView_Click(object sender, EventArgs e)
+		{
+			dataGridView1.Refresh();
 		}
 	}
 }

@@ -51,6 +51,7 @@
 			this.educationFormBox = new System.Windows.Forms.TextBox();
 			this.courseBox = new System.Windows.Forms.TextBox();
 			this.button_AddUserObjectsMarks = new System.Windows.Forms.Button();
+			this.button_RefreshDataGridView = new System.Windows.Forms.Button();
 			textBox1 = new System.Windows.Forms.TextBox();
 			textBox3 = new System.Windows.Forms.TextBox();
 			textBox4 = new System.Windows.Forms.TextBox();
@@ -237,7 +238,7 @@
 			// 
 			this.button_WriteDataInFile.Location = new System.Drawing.Point(12, 12);
 			this.button_WriteDataInFile.Name = "button_WriteDataInFile";
-			this.button_WriteDataInFile.Size = new System.Drawing.Size(250, 54);
+			this.button_WriteDataInFile.Size = new System.Drawing.Size(100, 50);
 			this.button_WriteDataInFile.TabIndex = 155;
 			this.button_WriteDataInFile.Text = "Записать БД";
 			this.button_WriteDataInFile.UseVisualStyleBackColor = true;
@@ -245,9 +246,9 @@
 			// 
 			// button_ReadDB
 			// 
-			this.button_ReadDB.Location = new System.Drawing.Point(280, 12);
+			this.button_ReadDB.Location = new System.Drawing.Point(118, 12);
 			this.button_ReadDB.Name = "button_ReadDB";
-			this.button_ReadDB.Size = new System.Drawing.Size(250, 55);
+			this.button_ReadDB.Size = new System.Drawing.Size(100, 50);
 			this.button_ReadDB.TabIndex = 156;
 			this.button_ReadDB.Text = "Прочитать БД";
 			this.button_ReadDB.UseVisualStyleBackColor = true;
@@ -277,19 +278,30 @@
 			// courseBox
 			// 
 			this.courseBox.Location = new System.Drawing.Point(1067, 323);
+			this.courseBox.MaxLength = 1;
 			this.courseBox.Name = "courseBox";
 			this.courseBox.Size = new System.Drawing.Size(249, 20);
 			this.courseBox.TabIndex = 6;
 			// 
 			// button_AddUserObjectsMarks
 			// 
-			this.button_AddUserObjectsMarks.Location = new System.Drawing.Point(576, 12);
+			this.button_AddUserObjectsMarks.Location = new System.Drawing.Point(224, 12);
 			this.button_AddUserObjectsMarks.Name = "button_AddUserObjectsMarks";
-			this.button_AddUserObjectsMarks.Size = new System.Drawing.Size(277, 53);
+			this.button_AddUserObjectsMarks.Size = new System.Drawing.Size(200, 50);
 			this.button_AddUserObjectsMarks.TabIndex = 158;
 			this.button_AddUserObjectsMarks.Text = "Внести данные по Учёбе";
 			this.button_AddUserObjectsMarks.UseVisualStyleBackColor = true;
 			this.button_AddUserObjectsMarks.Click += new System.EventHandler(this.button_AddUserObjectsMarks_Click);
+			// 
+			// button_RefreshDataGridView
+			// 
+			this.button_RefreshDataGridView.Location = new System.Drawing.Point(637, 17);
+			this.button_RefreshDataGridView.Name = "button_RefreshDataGridView";
+			this.button_RefreshDataGridView.Size = new System.Drawing.Size(215, 49);
+			this.button_RefreshDataGridView.TabIndex = 159;
+			this.button_RefreshDataGridView.Text = "Обновить таблицу";
+			this.button_RefreshDataGridView.UseVisualStyleBackColor = true;
+			this.button_RefreshDataGridView.Click += new System.EventHandler(this.button_RefreshDataGridView_Click);
 			// 
 			// Form1
 			// 
@@ -297,6 +309,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Wheat;
 			this.ClientSize = new System.Drawing.Size(1328, 656);
+			this.Controls.Add(this.button_RefreshDataGridView);
 			this.Controls.Add(this.button_AddUserObjectsMarks);
 			this.Controls.Add(textBox8);
 			this.Controls.Add(textBox7);
@@ -346,6 +359,7 @@
 		private System.Windows.Forms.TextBox educationFormBox;
 		private System.Windows.Forms.TextBox courseBox;
 		private System.Windows.Forms.Button button_AddUserObjectsMarks;
+		public System.Windows.Forms.Button button_RefreshDataGridView;
 	}
 }
 
